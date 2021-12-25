@@ -4,7 +4,7 @@ package com.redistest.entity;
  * @author songchao
  * @date 2021/12/3 16:33
  */
-public class Stu {
+public class Stu  {
     private Integer id;
     private String name;    //姓名
     private Integer age;    //年龄
@@ -52,4 +52,13 @@ public class Stu {
         this.dept = dept;
     }
 
+    @Override
+    public String toString() {
+        return "Stu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", dept='" + dept + '\'' +
+                '}';
+    }
 }
