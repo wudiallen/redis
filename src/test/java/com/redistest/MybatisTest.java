@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import sun.util.resources.cldr.kk.LocaleNames_kk;
 
 import javax.sound.midi.Soundbank;
 import java.text.DateFormat;
@@ -271,16 +272,42 @@ class MybatisTest {
     }
 
     @Test
-    void test() throws ParseException {
+    void test()   {
+        Stu stu = new Stu(1, "1", 1, "1");
+
         List<Stu> list1 = new ArrayList<>();
-        list1.add(new Stu(1, "小松", 19, "1"));
-        list1.add(new Stu(2, "小董", 19, "1"));
-        list1.add(new Stu(3, "小超", 19, "1"));
+        list1.add(stu);
+        list1.forEach(e -> {
+            redisTemplate.opsForSet().add("{compare}key1", JSON.toJSONString(e));
+        });
+
+        Stu stu1 = new Stu(2, "1", 1, "1");
         List<Stu> list2 = new ArrayList<>();
-        list2.add(new Stu(1, "小松", 19, "1"));
-        list2.add(new Stu(2, "小董1", 19, "1"));
-        list2.add(new Stu(4, "小超1", 191, "2"));
-        list1.removeAll(list2);
-        System.out.println(list1.toString());
+        list2.add(stu1);
+        list2.forEach(e -> {
+            redisTemplate.opsForSet().add("{compare}key2", JSON.toJSONString(e));
+        });
+
+        Set<Object> difference = redisTemplate.opsForSet().difference("{compare}key1", "{compare}key2");
+        System.out.println(difference);
+        System.out.println(difference.toString());
+        List<Stu> list = JSONArray.parseArray(difference.toString(), Stu.class);
+        if (null == list || list.size() <= 0) {
+            System.out.println("差异集合为空");
+        } else {
+            list.forEach(e -> {
+                System.out.println(e);
+            });
+        }
     }
+    @Test
+    void test1()   {
+       String s = "123";
+       if (null != s){
+           System.out.println("不是null");
+       }else {
+           System.out.println("是null");
+       }
+    }
+
 }
