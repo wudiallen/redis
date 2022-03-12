@@ -47,6 +47,20 @@ class MybatisTest {
     AddressTempService addressTempService;
 
     @Test
+    void testUpdate() {
+        Address address = new Address();
+        address.getList().add("1");
+        System.out.println(address);
+    }
+
+    private void check(List<Address> list, Integer errorNum) {
+        for (Address address : list) {
+            address.setId(1);
+            errorNum += 1;
+        }
+    }
+
+    @Test
     void makeRecords() {
         long start = System.currentTimeMillis();
 //        for (int i = 0; i < 10000; i++) {
@@ -272,7 +286,7 @@ class MybatisTest {
     }
 
     @Test
-    void test()   {
+    void test() {
         Stu stu = new Stu(1, "1", 1, "1");
 
         List<Stu> list1 = new ArrayList<>();
@@ -300,14 +314,15 @@ class MybatisTest {
             });
         }
     }
+
     @Test
-    void test1()   {
-       String s = "123";
-       if (null != s){
-           System.out.println("不是null");
-       }else {
-           System.out.println("是null");
-       }
+    void test1() {
+        String s = "123";
+        if (null != s) {
+            System.out.println("不是null");
+        } else {
+            System.out.println("是null");
+        }
     }
 
 }

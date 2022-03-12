@@ -4,12 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.redistest.entity.Stu;
 import com.redistest.util.RedisUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JsonbTester;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -82,6 +84,16 @@ class FirstApplicationTests {
         difference.forEach(e -> {
             System.out.println(e);
         });
+    }
+
+    @Test
+    void aa() {
+        Stu stu1 = new Stu(1,"1",1,"1");
+        Stu stu2 = new Stu(2,"2",2,"2");
+        Stu stu3 = new Stu(3,"1",1,"1");
+
+        BeanUtils.copyProperties(stu1, stu2);
+        System.out.println(stu2);
     }
 
 }

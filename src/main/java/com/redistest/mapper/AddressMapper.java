@@ -47,4 +47,7 @@ public interface AddressMapper extends BaseMapper<Address> {
             "</foreach>" +
             "</script>")
     void updateList(@Param("lists") List<Address> updateAndInsertList);
+
+    @Select("select id ,name from address where name like concat('%',#{name},'%')")
+    Address selectByName(@Param("name") String name);
 }

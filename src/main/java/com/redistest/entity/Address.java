@@ -9,6 +9,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author songchao
@@ -36,6 +37,9 @@ public class Address implements Serializable {
     @TableField("date")
     private LocalDateTime date;
 
+    private List<String> list;
 
-
+    public Address(String bname) {
+        this.bname = bname;
+    }
 }
